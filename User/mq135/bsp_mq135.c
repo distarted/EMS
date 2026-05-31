@@ -106,7 +106,7 @@ void MQ135_Init(void)
 
 float MQ135_Get_PPM(void)
 {
-    float vrl = (float)MQ_ADC_Values[1] / 4096.0f * MQ135_VC;
+    float vrl = (float)MQ_ADC_Values[1] / 4096.0f * MQ_ADC_VREF;
     float Rs  = (MQ135_VC - vrl) * MQ135_RL / vrl;
     return MQ135_A * powf(Rs / MQ135_R0, MQ135_B);
 }

@@ -15,7 +15,7 @@ void MQ2_Init(void)
 
 float MQ2_Get_PPM(void)
 {
-    float vrl = (float)MQ_ADC_Values[0] / 4096.0f * MQ2_VC;
+    float vrl = (float)MQ_ADC_Values[0] / 4096.0f * MQ_ADC_VREF;
     float Rs  = (MQ2_VC - vrl) * MQ2_RL / vrl;
     return MQ2_A * powf(Rs / MQ2_R0, MQ2_B);
 }

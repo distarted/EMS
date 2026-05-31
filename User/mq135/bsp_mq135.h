@@ -13,10 +13,13 @@
 #define MQ135_DO_PIN            GPIO_Pin_4
 #define MQ135_DO_CLK            RCC_AHB1Periph_GPIOC
 
+/* ADC 参考电压 (STM32F407 Vref = 3.3V) */
+#define MQ_ADC_VREF 3.3f
+
 /* 传感器常数 */
 #define MQ135_RL  1.0f
 #define MQ135_R0  2.0f
-#define MQ135_VC  5.0f
+#define MQ135_VC  5.0f   /* 传感器供电电压 (用于 Rs 计算) */
 #define MQ135_A   4.17f
 #define MQ135_B   (-2.28f)
 

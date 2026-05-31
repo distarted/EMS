@@ -1,4 +1,5 @@
 #include "./key/bsp_key.h"
+#include "./dwt_delay/bsp_dwt_delay.h"
 
 void Key_Init(void)
 {
@@ -20,8 +21,13 @@ uint8_t Key_Scan(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
     if (GPIO_ReadInputDataBit(GPIOx, GPIO_Pin) == KEY_ON)
     {
-        while (GPIO_ReadInputDataBit(GPIOx, GPIO_Pin) == KEY_ON);
-        return KEY_ON;
+        DWT_Delay_ms(20);
+        if (GPIO_ReadInputDataBit(GPIOx, GPIO_Pin) == KEY_ON)
+        {
+            uint32_t timeout = 50000;
+            while (GPIO_ReadInputDataBit(GPIOx, GPIO_Pin) == KEY_ON && --timeout);
+            return KEY_ON;
+        }
     }
     return KEY_OFF;
 }
