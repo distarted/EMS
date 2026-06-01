@@ -1,6 +1,7 @@
 /**
  * OLED 0.96寸 I2C SSD1306 驱动
  * 基于野火 F407 I2C EEPROM 例程模式改写
+ * 引脚: PB8(SCL) + PB9(SDA) — 需外接 4.7kΩ 上拉电阻
  */
 #include "./oled/bsp_oled.h"
 #include "./dwt_delay/bsp_dwt_delay.h"

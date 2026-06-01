@@ -3,19 +3,19 @@
 
 #include "stm32f4xx.h"
 
-/* I2C1 引脚: PB6(SCL) + PB7(SDA), 可改 PB8/PB9 */
+/* I2C1 引脚: PB8(SCL) + PB9(SDA) */
 #define OLED_I2C                I2C1
 #define OLED_I2C_CLK            RCC_APB1Periph_I2C1
 #define OLED_I2C_SPEED          400000
 
 #define OLED_SCL_PORT           GPIOB
-#define OLED_SCL_PIN            GPIO_Pin_6
-#define OLED_SCL_SOURCE         GPIO_PinSource6
+#define OLED_SCL_PIN            GPIO_Pin_8
+#define OLED_SCL_SOURCE         GPIO_PinSource8
 #define OLED_SCL_AF             GPIO_AF_I2C1
 
 #define OLED_SDA_PORT           GPIOB
-#define OLED_SDA_PIN            GPIO_Pin_7
-#define OLED_SDA_SOURCE         GPIO_PinSource7
+#define OLED_SDA_PIN            GPIO_Pin_9
+#define OLED_SDA_SOURCE         GPIO_PinSource9
 #define OLED_SDA_AF             GPIO_AF_I2C1
 
 #define OLED_I2C_GPIO_CLK       RCC_AHB1Periph_GPIOB

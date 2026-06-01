@@ -31,8 +31,8 @@
     KEY1 │ PA0  ○                        ○  PA9 │ USART1 TX
     KEY2 │ PC13 ○                        ○ PA10 │ USART1 RX
          │                                      │
-  DHT11  │ PA6  ○                        ○  PB6 │ OLED SCL (I2C1)
-         │      ○                        ○  PB7 │ OLED SDA (I2C1)
+  DHT11  │ PE3  ○                        ○  PB8 │ OLED SCL (I2C1)
+         │      ○                        ○  PB9 │ OLED SDA (I2C1)
   MQ135  │ PA4  ○ (AO)                           │
          │ PC4  ○ (DO)                    ○  PF6 │ LED R
   MQ2    │ PA1  ○ (AO)                           │
@@ -60,11 +60,11 @@
 | | DO | **PC5** | 数字阈值输出 |
 | **OLED** | VCC | **3.3V** | 0.96寸 I2C SSD1306 |
 | | GND | GND | |
-| | SCL | **PB6** | I2C1 时钟线, 外接 4.7kΩ 上拉到 3.3V |
-| | SDA | **PB7** | I2C1 数据线, 外接 4.7kΩ 上拉到 3.3V |
+| | SCL | **PB8** | I2C1 时钟线, 外接 4.7kΩ 上拉到 3.3V |
+| | SDA | **PB9** | I2C1 数据线, 外接 4.7kΩ 上拉到 3.3V |
 | **DHT11** | VCC | **3.3V** | 也可 5V, 但 DATA 上拉需匹配 |
 | | GND | GND | |
-| | DATA | **PA6** | 外接 4.7kΩ 上拉到 3.3V |
+| | DATA | **PE3** | 外接 4.7kΩ 上拉到 3.3V |
 | **TB6612** | VCC | **5V** | 电机驱动电源 |
 | | GND | GND | 与 STM32 共地 |
 | | PWMA | **PB0** | PWM 调速 (TIM3_CH3, 10kHz) |
@@ -170,14 +170,14 @@ extern __IO uint16_t MQ_ADC_Values[2];
 
 ### I2C 使用说明
 
-OLED 使用 I2C1 (PB6/PB7), 400kHz。如需改为 PB8/PB9 (与 EEPROM 例程一致):
+OLED 使用 I2C1 (PB8/PB9), 400kHz。如需改为 PB6/PB7 (与某些旧例程一致):
 
 ```c
 // bsp_oled.h 中修改
-#define OLED_SCL_PIN      GPIO_Pin_8
-#define OLED_SCL_SOURCE   GPIO_PinSource8
-#define OLED_SDA_PIN      GPIO_Pin_9
-#define OLED_SDA_SOURCE   GPIO_PinSource9
+#define OLED_SCL_PIN      GPIO_Pin_6
+#define OLED_SCL_SOURCE   GPIO_PinSource6
+#define OLED_SDA_PIN      GPIO_Pin_7
+#define OLED_SDA_SOURCE   GPIO_PinSource7
 ```
 
 ### PWM 使用说明
@@ -227,7 +227,7 @@ PWM 频率计算:  84 MHz / (PSC × ARR) = 84 MHz / (84 × 100) = 10 kHz
 | LED 不亮 | PF 端口未初始化 | 确认 LED_Init() 已调用 |
 | MQ 传感器读数全 0 | ADC 未配置或传感器未供电 | 检查 5V 供电, PA1/PA4 接线 |
 | MQ 传感器 PPM 值异常 | 传感器未预热 | 上电等待 1-2 分钟 |
-| OLED 无显示 | I2C 无应答 | 检查 PB6/PB7 接线 + 4.7kΩ 上拉 |
-| DHT11 读取失败 | 时序问题或上拉缺失 | 检查 PA6 外接 4.7kΩ 上拉 |
+| OLED 无显示 | I2C 无应答 | 检查 PB8/PB9 接线 + 4.7kΩ 上拉 |
+| DHT11 读取失败 | 时序问题或上拉缺失 | 检查 PE3 外接 4.7kΩ 上拉 |
 | 电机不转 | STBY 未拉高 / 供电不足 | 检查 PC2=高, VM 供电电压 |
 | 编译错误 | 缺少器件包 | 安装 Keil.STM32F4xx_DFP.2.5.0+ |

@@ -3,7 +3,7 @@
 
 #include "stm32f4xx.h"
 
-#define DHT11_PORT      GPIOA
+#define DHT11_PORT      GPIOE
 #define DHT11_PIN       GPIO_Pin_3
 #define DHT11_CLK       RCC_AHB1Periph_GPIOE
 
