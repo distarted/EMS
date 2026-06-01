@@ -1,3 +1,4 @@
+
 /**
   ******************************************************************************
   * @file    main.c
@@ -17,8 +18,8 @@
   * Pin Map:
   *   MQ135:  AO=PA4(ADC1_CH4)  DO=PC4
   *   MQ2:    AO=PA1(ADC1_CH1)  DO=PC5
-  *   OLED:   SCL=PB6(I2C1)     SDA=PB7(I2C1)
-  *   DHT11:  DATA=PA6
+ *   OLED:   SCL=PB8(I2C1)     SDA=PB9(I2C1)
+ *   DHT11:  DATA=PE3
   *   TB6612: PWMA=PB0(TIM3_CH3) AIN1=PC0 AIN2=PC1 STBY=PC2
   *   USART1: TX=PA9  RX=PA10
   *   KEY:    K1=PA0  K2=PC13
@@ -125,7 +126,7 @@ static void Mode2_OLED(void)
         printf("\r\n========================================\r\n");
         printf("  Mode 2: OLED 0.96\" I2C Display\r\n");
         printf("========================================\r\n");
-        printf("  SCL=PB6  SDA=PB7 (I2C1, 400kHz)\r\n");
+        printf("  SCL=PB8  SDA=PB9 (I2C1, 400kHz)\r\n");
         printf("  SSD1306 addr: 0x3C\r\n");
         printf("  GPIO: open-drain, no pull (ext 4.7k pull-up needed)\r\n");
         printf("\r\n  I2C1 HW ready, press KEY2 to send test data\r\n");
@@ -151,7 +152,7 @@ static void Mode2_OLED(void)
         } else {
             printf("  [FAIL] OLED no ACK! Check:\r\n");
             printf("    1. VCC->3.3V, GND->GND\r\n");
-            printf("    2. SCL->PB6, SDA->PB7\r\n");
+            printf("    2. SCL->PB8, SDA->PB9\r\n");
             printf("    3. Ext 4.7k pull-up to 3.3V\r\n");
             LED_RED;
         }
@@ -171,7 +172,7 @@ static void Mode3_DHT11(void)
         printf("\r\n========================================\r\n");
         printf("  Mode 3: DHT11 Temperature & Humidity\r\n");
         printf("========================================\r\n");
-        printf("  DATA=PA6 (ext 4.7k pull-up to 3.3V)\r\n");
+        printf("  DATA=PE3 (ext 4.7k pull-up to 3.3V)\r\n");
         printf("\r\n  Press KEY2 to trigger one reading\r\n");
         printf("  (one-wire protocol TBD)\r\n");
     }
@@ -186,7 +187,7 @@ static void Mode3_DHT11(void)
         } else {
             printf("  [FAIL] DHT11 read failed! Check:\r\n");
             printf("    1. VCC->3.3V, GND->GND\r\n");
-            printf("    2. DATA->PA6\r\n");
+            printf("    2. DATA->PE3\r\n");
             printf("    3. Ext 4.7k pull-up on DATA to 3.3V\r\n");
             LED_RED;
         }
@@ -292,7 +293,7 @@ int main(void)
     printf("\r\nInitializing modules...\r\n");
 
     DHT11_Init();
-    printf("  [OK] DHT11 GPIO ready (PA6)\r\n");
+    printf("  [OK] DHT11 GPIO ready (PE3)\r\n");
 
     MQ135_Init();
     printf("  [OK] MQ135+MQ2 ADC1 DMA dual-chan ready\r\n");
